@@ -1,4 +1,4 @@
-
+//token key = "OTEzMDEyNTI1NjMxNjg4NzI0.YZ4TLQ.vtfSdiEBCGGzMqKj8qy5J6OanxU"
 //url = https://discord.com/api/oauth2/authorize?client_id=913012525631688724&permissions=0&scope=bot
 require("dotenv").config();
 const fs = require('fs')
@@ -61,19 +61,19 @@ bot.on('guildMemberAdd', member => {
 });
 
 bot.on('message', msg => {
-    if (msg.content === "datatype:number") {
+    if (msg.content.length <= 42) {
       writeFile(msg.member.user.tag + msg.content)
         //write to external txt file
         //store userid/tag and address
         //use message.member.user.tag to capture userID
-      msg.reply('Enter a random word to sign your Address');
+      msg.reply('Enter a random word to sign your Address not greater than 14');
       //msg.channel.send('pong');
     }
   });
 
   bot.on('message', msg => {
       //if the message is coming from the new user by importing data from txt file
-    if (msg.content === "datatype:string") {
+    if (msg.content.length <= 14) {
       //check for userid and verify if address is stored on txt file
       //if valid 
       var userID = msg.member.user.tag
