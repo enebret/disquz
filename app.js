@@ -15,8 +15,9 @@ async function signsig(userID){
   var address;
   for(i=0; i<filearr.length; i++){
     const comp = filearr[i].slice(1,5)
+    const addr = arrFile[i].replace(/[compare]/g, '')
     if(userID===comp){
-      address = filearr[i]
+      address = addr
     }
   }
   const signature = web3.eth.sign("Hello world", address)
@@ -73,6 +74,7 @@ bot.on('message', msg => {
       const arrFile = [arr(readFile)]
       for(i=0; i<arrFile.length; i++){
         const compare = arrFile[i].slice(1,5)
+        //const addr = arrFile[i].replace(/[compare]/g, '')
         if(compare===userID){
           signsig(userID);
          assignRole(msg);
