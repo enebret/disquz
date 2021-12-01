@@ -4,21 +4,30 @@ require("dotenv").config();
 const fs = require('fs')
 const key = process.env.TOKEN;
 const Discord = require('discord.js');
+const web3 = require('web3');
 const bot = new Discord.Client();
 bot.login(key);
 
-function signsig(z){
-
+async function signsig(userID){
+  //use userid to find address
+  const file = await readFile()
+  const filearr = [file]
+  var address;
+  for(i=0; i<filearr.length; i++){
+    const comp = filearr[i].slice(1,14)
+    if(userID===comp){
+      address = filearr[i]
+    }
+  }
+  const signature = web3.eth.sign("Hello world", address)
+  return signature
 }
 
-function getuserAdd(x){
-    //check if (x.datatype=&&x.length=14){
-         signsig(x)
-    //}
-}
 
-function assignRole(){
 
+function assignRole(msg){
+  var role = msg.guild.roles.find(role => role.name === "MyRole");
+  msg.member.addRole(role);
 }
 
 const arr = async (x) =>{
@@ -53,8 +62,7 @@ bot.on('guildMemberAdd', member => {
 
 bot.on('message', msg => {
     if (msg.content === "datatype:number") {
-      writeFile(msg.member.user.tag)
-      writeFile(msg.content)
+      writeFile(msg.member.user.tag + msg.content)
         //write to external txt file
         //store userid/tag and address
         //use message.member.user.tag to capture userID
@@ -73,7 +81,7 @@ bot.on('message', msg => {
         let arrSigma = arr(readFile)
         if(arrSigma[i]===userID){
           signsig(userID);
-         assignRole(userID);
+         assignRole(msg);
         }
       }
       
