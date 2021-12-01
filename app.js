@@ -68,14 +68,7 @@ bot.on('message', msg => {
         //use message.member.user.tag to capture userID
       msg.reply('Enter a random word to sign your Address not greater than 14');
       //msg.channel.send('pong');
-    }
-  });
-
-  bot.on('message', msg => {
-      //if the message is coming from the new user by importing data from txt file
-    if (msg.content.length <= 14) {
-      //check for userid and verify if address is stored on txt file
-      //if valid 
+    }else if (msg.content.length <= 14) {
       var userID = msg.member.user.tag
       const arrFile = [arr(readFile)]
       for(i=0; i<arrFile.length; i++){
@@ -85,6 +78,7 @@ bot.on('message', msg => {
          assignRole(msg);
         }
       }
-      
     }
   });
+
+ 
