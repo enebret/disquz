@@ -14,7 +14,7 @@ async function signsig(userID){
   const filearr = [file]
   var address;
   for(i=0; i<filearr.length; i++){
-    const comp = filearr[i].slice(1,14)
+    const comp = filearr[i].slice(1,5)
     if(userID===comp){
       address = filearr[i]
     }
@@ -77,9 +77,10 @@ bot.on('message', msg => {
       //check for userid and verify if address is stored on txt file
       //if valid 
       var userID = msg.member.user.tag
-      for(i=0; i<arr.length; i++){
-        let arrSigma = arr(readFile)
-        if(arrSigma[i]===userID){
+      const arrFile = [arr(readFile)]
+      for(i=0; i<arrFile.length; i++){
+        const compare = arrFile[i].slice(1,5)
+        if(compare===userID){
           signsig(userID);
          assignRole(msg);
         }
