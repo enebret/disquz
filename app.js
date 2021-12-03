@@ -39,7 +39,7 @@ const arr = async (x) =>{
 }
 
 function writeFile(x){
-  fs.appendFile('file.txt', 'x'+'\n', function (err) {
+  fs.appendFile('file.txt', x +'\n', function (err) {
     if (err) throw err;
     console.log('Saved!');
   });
@@ -54,7 +54,7 @@ function readFile(){
 }
 
 bot.on('guildMemberAdd', member => {
-    const channel = member.guild.channels.cache.get('913014138547105802');
+    const channel = member.guild.channels.cache.find(ch => ch.name==="general");
     if (!channel) return;
 
     channel.send("Enter your ETH Address")
@@ -62,15 +62,21 @@ bot.on('guildMemberAdd', member => {
 });
 
 bot.on('message', msg => {
-    if (msg.content.length <= 42) {
+  if (msg.author.bot){
+    return;
+  } else     
+    if (msg.content.indexOf("0") === 0) {
       writeFile(msg.member.user.tag + msg.content)
         //write to external txt file
         //store userid/tag and address
         //use message.member.user.tag to capture userID
-      msg.reply('Enter a random word to sign your Address not greater than 14');
+      msg.reply('Kindly verify that this account belongs to you by signing the address with a random string not greater than 14 characters.');
+      return
       //msg.channel.send('pong');
     }else if (msg.content.length <= 14) {
-      var userID = msg.member.user.tag
+      msg.reply("\n" + 'Address signed!' + "\n" + "ETH address");
+      //msg.reply('ETH Address');
+     /** var userID = msg.member.user.tag
       const arrFile = [arr(readFile)]
       for(i=0; i<arrFile.length; i++){
         const compare = arrFile[i].slice(1,5)
@@ -79,7 +85,8 @@ bot.on('message', msg => {
           signsig(userID);
          assignRole(msg);
         }
-      }
+      } */
+      return
     }
   });
 
