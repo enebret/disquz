@@ -25,3 +25,4 @@ const decrypt = (hash) => {
     return decrpyted.toString();
 };
 console.log(encrypt("tiger"))
+//https://attacomsian.com/blog/nodejs-encrypt-decrypt-data
