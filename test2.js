@@ -1,7 +1,27 @@
-const Web3 = require('web3');
-const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/0f4ea603a23c4cb6b82c934201968316"))
-async function vb() {
-    const signature = await web3.eth.sign("Hello world", "0x4683735758db31cf1228f6a417c2b6b1618f0a67");
-    console.log(signature)
-}
-vb()
+const crypto = require('crypto');
+
+const algorithm = 'aes-256-ctr';
+const secretKey = 'vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3';
+const iv = crypto.randomBytes(16);
+
+const encrypt = (text) => {
+
+    const cipher = crypto.createCipheriv(algorithm, secretKey, iv);
+
+    const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
+
+    return {
+        iv: iv.toString('hex'),
+        content: encrypted.toString('hex')
+    };
+};
+
+const decrypt = (hash) => {
+
+    const decipher = crypto.createDecipheriv(algorithm, secretKey, Buffer.from(hash.iv, 'hex'));
+
+    const decrpyted = Buffer.concat([decipher.update(Buffer.from(hash.content, 'hex')), decipher.final()]);
+
+    return decrpyted.toString();
+};
+console.log(encrypt("tiger"))

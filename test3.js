@@ -9,4 +9,7 @@ const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io
   }) */
   
   //let result = web3.isAddress("0x4683735758db31cf1228f6a417c2b6b1618f0a67")
-  const messageHas
+ 
+  msg = web3.sha3('message')
+  signature = web3.eth.sign("0x4683735758db31cf1228f6a417c2b6b1618f0a67", msg)
+  console.log(signature)
